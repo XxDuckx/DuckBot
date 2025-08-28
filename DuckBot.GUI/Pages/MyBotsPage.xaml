@@ -1,0 +1,25 @@
+<UserControl x:Class="DuckBot.GUI.Pages.MyBotsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="#1e1e1e">
+        <StackPanel Margin="10">
+            <TextBlock Text="My Bots" FontSize="20" Margin="0,0,0,10"/>
+
+            <ListBox x:Name="BotList" Height="400" Background="#2d2d2d" Foreground="White">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Name}" Width="200" Margin="5"/>
+                            <Button Content="?" Width="40" Click="OnStartClick"/>
+                            <Button Content="?" Width="40" Click="OnStopClick"/>
+                            <Button Content="?" Width="40" Click="OnSettingsClick"/>
+                            <Button Content="??" Width="40" Click="OnDeleteClick"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Content="Add Bot Instance" Width="200" Height="40" Margin="10" Click="OnAddBot"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

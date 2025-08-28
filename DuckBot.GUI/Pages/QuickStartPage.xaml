@@ -1,0 +1,18 @@
+<UserControl x:Class="DuckBot.GUI.Pages.QuickStartPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="20" Background="#1e1e1e">
+        <TextBlock Text="Quick Start Wizard" FontSize="20" Margin="0,0,0,10"/>
+        <TextBlock Text="Step 1: Choose Emulator" Margin="0,0,0,5"/>
+        <ComboBox Width="200" Margin="0,0,0,10">
+            <ComboBoxItem Content="LDPlayer 9"/>
+            <ComboBoxItem Content="LDPlayer 5"/>
+        </ComboBox>
+        <TextBlock Text="Step 2: Choose Game" Margin="0,0,0,5"/>
+        <ComboBox Width="200" Margin="0,0,0,10">
+            <ComboBoxItem Content="West Game"/>
+            <ComboBoxItem Content="Other Game"/>
+        </ComboBox>
+        <Button Content="Start Bot" Width="200"/>
+    </StackPanel>
+</UserControl>

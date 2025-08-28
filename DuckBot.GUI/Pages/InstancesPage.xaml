@@ -1,0 +1,23 @@
+<Page x:Class="DuckBot.GUI.Pages.InstancesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="InstancesPage"
+      Background="#1e1e1e"
+      Foreground="White">
+
+    <DockPanel Margin="10">
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Add Instance" Width="120" Margin="5" Click="OnAddInstance"/>
+            <Button Content="Remove Instance" Width="140" Margin="5" Click="OnRemoveInstance"/>
+            <Button Content="Edit Settings" Width="140" Margin="5" Click="OnEditInstance"/>
+        </StackPanel>
+
+        <ListBox x:Name="InstanceList"
+                 Background="#1e1e1e"
+                 Foreground="White"
+                 Height="400"
+                 DisplayMemberPath="InstanceName"/>
+
+    </DockPanel>
+</Page>

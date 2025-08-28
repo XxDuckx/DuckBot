@@ -1,5 +1,5 @@
 
-namespace DuckBot.Licensing
+namespace DuckBot.Auth
 {
     public class Class1
     {

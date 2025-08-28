@@ -1,0 +1,26 @@
+<UserControl x:Class="DuckBot.GUI.Pages.ScriptBuilderPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#1e1e1e"
+             Foreground="White">
+
+	<DockPanel Margin="10">
+		<!-- Left Toolbar -->
+		<StackPanel DockPanel.Dock="Left" Width="200" Background="#2d2d2d" Margin="5">
+			<TextBlock Text="Script Builder" Margin="5"/>
+			<Button Content="Add TAP Step" Click="OnAddTap"/>
+			<Button Content="Add WAIT Step" Click="OnAddWait"/>
+			<Button Content="Add INPUT Step" Click="OnAddInput"/>
+			<Button Content="Save Script" Click="OnSaveScript"/>
+			<Button Content="Load Script" Click="OnLoadScript"/>
+		</StackPanel>
+
+		<!-- Main Script List -->
+		<ListBox x:Name="ScriptList"
+                 DockPanel.Dock="Right"
+                 Background="#1e1e1e"
+                 Foreground="White"
+                 Margin="10"
+                 DisplayMemberPath="Type"/>
+	</DockPanel>
+</UserControl>

@@ -1,0 +1,17 @@
+<UserControl x:Class="DuckBot.GUI.Pages.InstanceSettings.EmulatorsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="10">
+        <TextBlock Text="Manage Emulators" FontSize="16"/>
+        <ListBox ItemsSource="{Binding Emulators}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Width="200"/>
+                        <TextBox Text="{Binding AssignedTask}" Width="150"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+</UserControl>

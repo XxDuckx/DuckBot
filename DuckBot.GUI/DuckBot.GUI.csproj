@@ -1,10 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DuckBot.Core\DuckBot.Core.csproj" />
+<ProjectReference Include="..\DuckBot.Auth\DuckBot.Auth.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\InstanceSettings\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -15,4 +26,3 @@
   </ItemGroup>
 
 </Project>
-

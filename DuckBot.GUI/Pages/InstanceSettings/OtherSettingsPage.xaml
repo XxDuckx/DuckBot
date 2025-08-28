@@ -1,0 +1,15 @@
+<UserControl x:Class="DuckBot.GUI.Pages.InstanceSettings.OtherSettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="10">
+        <TextBlock Text="Other Settings" FontSize="16"/>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Break Min:" Width="100"/>
+            <TextBox Text="{Binding OtherSettings.BreakMin}" Width="50"/>
+            <TextBlock Text="Break Max:" Width="100"/>
+            <TextBox Text="{Binding OtherSettings.BreakMax}" Width="50"/>
+        </StackPanel>
+        <CheckBox Content="Stop after loop" IsChecked="{Binding OtherSettings.StopAfterLoop}"/>
+        <CheckBox Content="Ignore cooldowns" IsChecked="{Binding OtherSettings.IgnoreCooldowns}"/>
+    </StackPanel>
+</UserControl>
