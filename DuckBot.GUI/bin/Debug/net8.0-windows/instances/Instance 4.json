@@ -1,0 +1,11 @@
+{
+  "InstanceName": "Instance 4",
+  "Emulator": "",
+  "Scripts": [],
+  "MailAccounts": [],
+  "BreakMinMinutes": 0,
+  "BreakMaxMinutes": 0,
+  "StopAfterLoop": false,
+  "IgnoreCooldowns": false,
+  "IsRunning": false
+}
