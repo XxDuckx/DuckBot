@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Windows\LoginWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DuckBot.Core\DuckBot.Core.csproj" />
 <ProjectReference Include="..\DuckBot.Auth\DuckBot.Auth.csproj" />
 
@@ -15,6 +19,12 @@
 
   <ItemGroup>
     <Folder Include="Pages\InstanceSettings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Windows\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

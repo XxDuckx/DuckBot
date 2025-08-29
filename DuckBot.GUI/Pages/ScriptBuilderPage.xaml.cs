@@ -1,5 +1,6 @@
-﻿using DuckBot.Auth;
-using DuckBot.Core.Models;
+﻿using DuckBot.Core.Models;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
@@ -8,43 +9,30 @@ using System.Windows.Controls;
 
 namespace DuckBot.GUI.Pages
 {
-    public partial class ScriptBuilderPage : UserControl
+    public partial class ScriptBuilderPage : Page
     {
-        private string _currentFile = "script.json";
         private readonly ObservableCollection<ScriptStep> _steps = new();
+        private string _currentFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "scripts", "script.json");
 
         public ScriptBuilderPage()
         {
             InitializeComponent();
-
-            if (!SubscriptionManager.IsPremium)
-            {
-                MessageBox.Show("Script Builder is a premium feature. Please upgrade your subscription.");
-                this.IsEnabled = false;
-                return;
-            }
-
+            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "scripts"));
             ScriptList.ItemsSource = _steps;
         }
 
-        private void OnAddTap(object sender, RoutedEventArgs e)
-        {
+        private void OnAddTap(object sender, RoutedEventArgs e) =>
             _steps.Add(new ScriptStep { Type = StepType.Tap, Param1 = "100", Param2 = "200" });
-        }
 
-        private void OnAddWait(object sender, RoutedEventArgs e)
-        {
+        private void OnAddWait(object sender, RoutedEventArgs e) =>
             _steps.Add(new ScriptStep { Type = StepType.Wait, Param1 = "1000" });
-        }
 
-        private void OnAddInput(object sender, RoutedEventArgs e)
-        {
+        private void OnAddInput(object sender, RoutedEventArgs e) =>
             _steps.Add(new ScriptStep { Type = StepType.Input, Param1 = "hello" });
-        }
 
         private void OnSaveScript(object sender, RoutedEventArgs e)
         {
-            string json = JsonSerializer.Serialize(_steps, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(_steps, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(_currentFile, json);
             MessageBox.Show("Script saved!");
         }
@@ -61,6 +49,13 @@ namespace DuckBot.GUI.Pages
                     foreach (var s in steps) _steps.Add(s);
                 }
             }
+        }
+
+        public static List<ScriptStep> LoadScript(string file)
+        {
+            if (!File.Exists(file)) return new List<ScriptStep>();
+            string json = File.ReadAllText(file);
+            return JsonSerializer.Deserialize<List<ScriptStep>>(json) ?? new List<ScriptStep>();
         }
     }
 }

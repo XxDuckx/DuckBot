@@ -1,11 +1,11 @@
-﻿using DuckBot.Core.Models;
-using DuckBot.Core.Services;
-using DuckBot.GUI.Windows;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using DuckBot.Core.Models;
+using DuckBot.Core.Services;
+using DuckBot.GUI.Windows;
 
 namespace DuckBot.GUI.Pages
 {
@@ -18,7 +18,7 @@ namespace DuckBot.GUI.Pages
         {
             InitializeComponent();
 
-            _instancesDir = Path.Combine(AppContext.BaseDirectory, "instances");
+            _instancesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "instances");
             Directory.CreateDirectory(_instancesDir);
 
             _instances = new ObservableCollection<InstanceConfig>();
@@ -52,7 +52,6 @@ namespace DuckBot.GUI.Pages
                 string path = Path.Combine(_instancesDir, $"{config.InstanceName}.json");
                 if (File.Exists(path))
                     File.Delete(path);
-
                 _instances.Remove(config);
             }
         }
@@ -64,9 +63,24 @@ namespace DuckBot.GUI.Pages
                 var window = new InstanceSettingsWindow(config.InstanceName);
                 window.Owner = Application.Current.MainWindow;
                 window.ShowDialog();
-
-                // Reload after editing
                 LoadInstances();
+            }
+        }
+
+        private void OnStartInstance(object sender, RoutedEventArgs e)
+        {
+            if (InstanceList.SelectedItem is InstanceConfig config)
+            {
+                LogService.Log(config.InstanceName, "Started instance.");
+                // Hook into ScriptRunner here
+            }
+        }
+
+        private void OnStopInstance(object sender, RoutedEventArgs e)
+        {
+            if (InstanceList.SelectedItem is InstanceConfig config)
+            {
+                LogService.Log(config.InstanceName, "Stopped instance.");
             }
         }
     }

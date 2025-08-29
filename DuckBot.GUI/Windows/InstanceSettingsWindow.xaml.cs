@@ -1,90 +1,75 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using DuckBot.Core.Models;
+﻿using DuckBot.Core.Models;
 using DuckBot.Core.Services;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace DuckBot.GUI.Windows
 {
     public partial class InstanceSettingsWindow : Window
     {
         private InstanceConfig _config;
+        private readonly string _fileName;
 
-        public InstanceSettingsWindow(string instanceName)
+        public InstanceSettingsWindow(string fileName, InstanceConfig config)
         {
             InitializeComponent();
-            _config = ConfigService.Load(instanceName);
-            DataContext = _config;
+            _fileName = fileName;
+            _config = config;
 
-            ScriptList.ItemsSource = _config.Scripts;
-            EmulatorList.ItemsSource = _config.Emulators;
-            MailGrid.ItemsSource = _config.MailAccounts;
+            // Load values into form
+            InstanceNameBox.Text = _config.InstanceName;
+            MailBox.Text = _config.MailAccount;
 
-            BreakMinBox.Text = _config.BreakMinMinutes.ToString();
-            BreakMaxBox.Text = _config.BreakMaxMinutes.ToString();
-            StopAfterLoopBox.IsChecked = _config.StopAfterLoop;
-            IgnoreCooldownsBox.IsChecked = _config.IgnoreCooldowns;
+            EmulatorBox.SelectedItem = null;
+            foreach (var item in EmulatorBox.Items)
+            {
+                if ((item as ComboBoxItem)?.Content.ToString() == _config.Emulator)
+                {
+                    EmulatorBox.SelectedItem = item;
+                    break;
+                }
+            }
+
+            ScriptList.Items.Clear();
+            foreach (var script in _config.Scripts)
+                ScriptList.Items.Add(script);
         }
 
         private void OnAddScript(object sender, RoutedEventArgs e)
         {
-            _config.Scripts.Add("New Script");
-            ScriptList.Items.Refresh();
+            var input = Microsoft.VisualBasic.Interaction.InputBox("Enter script name:", "Add Script", "");
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                ScriptList.Items.Add(input);
+            }
         }
 
         private void OnRemoveScript(object sender, RoutedEventArgs e)
         {
             if (ScriptList.SelectedItem != null)
-            {
-                _config.Scripts.Remove(ScriptList.SelectedItem.ToString());
-                ScriptList.Items.Refresh();
-            }
-        }
-
-        private void OnAssignEmulator(object sender, RoutedEventArgs e)
-        {
-            _config.Emulators.Add("New Emulator");
-            EmulatorList.Items.Refresh();
-        }
-
-        private void OnRemoveEmulator(object sender, RoutedEventArgs e)
-        {
-            if (EmulatorList.SelectedItem != null)
-            {
-                _config.Emulators.Remove(EmulatorList.SelectedItem.ToString());
-                EmulatorList.Items.Refresh();
-            }
-        }
-
-        private void OnAddMail(object sender, RoutedEventArgs e)
-        {
-            _config.MailAccounts.Add(new MailAccount { Email = "user@mail.com", Password = "pass" });
-            MailGrid.Items.Refresh();
-        }
-
-        private void OnRemoveMail(object sender, RoutedEventArgs e)
-        {
-            if (MailGrid.SelectedItem is MailAccount account)
-            {
-                _config.MailAccounts.Remove(account);
-                MailGrid.Items.Refresh();
-            }
+                ScriptList.Items.Remove(ScriptList.SelectedItem);
         }
 
         private void OnSave(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(BreakMinBox.Text, out int min)) _config.BreakMinMinutes = min;
-            if (int.TryParse(BreakMaxBox.Text, out int max)) _config.BreakMaxMinutes = max;
+            _config.InstanceName = InstanceNameBox.Text;
+            _config.MailAccount = MailBox.Text;
+            _config.Emulator = (EmulatorBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "LDPlayer";
 
-            _config.StopAfterLoop = StopAfterLoopBox.IsChecked ?? false;
-            _config.IgnoreCooldowns = IgnoreCooldownsBox.IsChecked ?? false;
+            _config.Scripts = new string[ScriptList.Items.Count];
+            for (int i = 0; i < ScriptList.Items.Count; i++)
+                _config.Scripts[i] = ScriptList.Items[i].ToString();
 
-            ConfigService.Save(_config);
+            ConfigService.SaveConfig(_fileName, _config);
 
-            MessageBox.Show("Instance settings saved.", "DuckBot", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Settings saved!", "DuckBot", MessageBoxButton.OK, MessageBoxImage.Information);
+            DialogResult = true;
+            Close();
         }
 
-        private void OnClose(object sender, RoutedEventArgs e)
+        private void OnCancel(object sender, RoutedEventArgs e)
         {
+            DialogResult = false;
             Close();
         }
     }

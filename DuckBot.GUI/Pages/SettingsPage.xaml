@@ -1,38 +1,11 @@
 <Page x:Class="DuckBot.GUI.Pages.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="SettingsPage"
-      Background="#1e1e1e"
-      Foreground="White">
-
-	<ScrollViewer VerticalScrollBarVisibility="Auto">
-		<StackPanel Margin="20">
-
-			<!-- Section: License -->
-			<GroupBox Header="License" Margin="0,0,0,20" Foreground="White">
-				<StackPanel Margin="10">
-					<TextBlock Text="License Key" FontSize="14" Margin="0,0,0,5"/>
-					<TextBox x:Name="LicenseBox" Width="300" Height="25" Margin="0,0,0,10"/>
-					<Button Content="Save License" Width="120" Height="30" Click="OnSaveLicense"/>
-				</StackPanel>
-			</GroupBox>
-
-			<!-- Section: Emulator Path (future configurable if not bundled) -->
-			<GroupBox Header="Emulator / ADB" Margin="0,0,0,20" Foreground="White">
-				<StackPanel Margin="10">
-					<TextBlock Text="Currently using bundled adb.exe" Margin="0,0,0,5"/>
-				</StackPanel>
-			</GroupBox>
-
-			<!-- Section: General Settings -->
-			<GroupBox Header="General Settings" Margin="0,0,0,20" Foreground="White">
-				<StackPanel Margin="10">
-					<CheckBox Content="Start DuckBot with Windows" Margin="0,5"/>
-					<CheckBox Content="Minimize to tray" Margin="0,5"/>
-					<CheckBox Content="Enable debug logging" Margin="0,5"/>
-				</StackPanel>
-			</GroupBox>
-
-		</StackPanel>
-	</ScrollViewer>
+      Title="Settings">
+    <StackPanel Margin="10">
+        <TextBlock Text="Logged in as:" FontWeight="Bold"/>
+        <TextBlock x:Name="UserLabel" Margin="5"/>
+        <TextBlock Text="Subscription:" FontWeight="Bold" Margin="0,10,0,0"/>
+        <TextBlock x:Name="SubLabel" Margin="5"/>
+    </StackPanel>
 </Page>

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
+using DuckBot.GUI.Pages;
 
 namespace DuckBot.GUI
 {
@@ -9,28 +8,14 @@ namespace DuckBot.GUI
         public MainWindow()
         {
             InitializeComponent();
-            NavigateTo("MyBotsPage"); // Default page
+            MainFrame.Navigate(new InstancesPage());
         }
 
-        private void OnNavClick(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is string pageName)
-            {
-                NavigateTo(pageName);
-            }
-        }
-
-        private void NavigateTo(string pageName)
-        {
-            Type? pageType = Type.GetType($"DuckBot.GUI.Pages.{pageName}");
-            if (pageType != null)
-            {
-                MainFrame.Content = Activator.CreateInstance(pageType);
-            }
-            else
-            {
-                MessageBox.Show($"Page not found: {pageName}");
-            }
-        }
+        private void OnInstances(object sender, RoutedEventArgs e) => MainFrame.Navigate(new InstancesPage());
+        private void OnLogs(object sender, RoutedEventArgs e) => MainFrame.Navigate(new LogsPage());
+        private void OnScriptBuilder(object sender, RoutedEventArgs e) => MainFrame.Navigate(new ScriptBuilderPage());
+        private void OnSettings(object sender, RoutedEventArgs e) => MainFrame.Navigate(new SettingsPage());
+        private void OnUpdates(object sender, RoutedEventArgs e) => MainFrame.Navigate(new UpdatesPage());
+        private void OnHelp(object sender, RoutedEventArgs e) => MainFrame.Navigate(new HelpPage());
     }
 }

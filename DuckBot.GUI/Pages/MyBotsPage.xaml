@@ -1,25 +1,39 @@
-<UserControl x:Class="DuckBot.GUI.Pages.MyBotsPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Background="#1e1e1e">
-        <StackPanel Margin="10">
-            <TextBlock Text="My Bots" FontSize="20" Margin="0,0,0,10"/>
+﻿<Page x:Class="DuckBot.GUI.Pages.MyBotsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:DuckBot.GUI.Pages"
+      xmlns:core="clr-namespace:DuckBot.Core.Models;assembly=DuckBot.Core"
+      mc:Ignorable="d"
+      Title="My Bots">
 
-            <ListBox x:Name="BotList" Height="400" Background="#2d2d2d" Foreground="White">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Name}" Width="200" Margin="5"/>
-                            <Button Content="?" Width="40" Click="OnStartClick"/>
-                            <Button Content="?" Width="40" Click="OnStopClick"/>
-                            <Button Content="?" Width="40" Click="OnSettingsClick"/>
-                            <Button Content="??" Width="40" Click="OnDeleteClick"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+    <Grid Background="#222">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Button Content="Add Bot Instance" Width="200" Height="40" Margin="10" Click="OnAddBot"/>
-        </StackPanel>
+        <!-- Header -->
+        <TextBlock Text="My Bot Instances"
+                   Foreground="White"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="10"/>
+
+        <!-- Bot List -->
+        <ListView x:Name="BotList"
+                  Grid.Row="1"
+                  Margin="10"
+                  ItemsSource="{Binding Instances}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                    <GridViewColumn Header="Emulator" DisplayMemberBinding="{Binding EmulatorId}" Width="100"/>
+                    <GridViewColumn Header="Script" DisplayMemberBinding="{Binding CurrentScript}" Width="150"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
-</UserControl>
+</Page>
