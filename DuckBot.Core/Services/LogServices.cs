@@ -1,32 +1,26 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.IO;
 
 namespace DuckBot.Core.Services
 {
     public static class LogService
     {
-        private static readonly ConcurrentDictionary<string, string> Logs = new();
-
-        private static string LogDir = Path.Combine(AppContext.BaseDirectory, "logs");
+        private static readonly string LogDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
 
         static LogService()
         {
             Directory.CreateDirectory(LogDir);
         }
 
-        public static void Log(string botName, string message)
+        public static void Log(string instanceName, string message)
         {
-            string log = $"[{DateTime.Now:HH:mm:ss}] {message}";
-            Logs[botName] = Logs.ContainsKey(botName) ? Logs[botName] + "\n" + log : log;
+            string path = Path.Combine(LogDir, $"{instanceName}.log");
+            string line = $"[{DateTime.Now:HH:mm:ss}] {message}{Environment.NewLine}";
+            File.AppendAllText(path, line);
 
-            File.AppendAllText(Path.Combine(LogDir, $"{botName}.log"), log + "\n");
-            File.AppendAllText(Path.Combine(LogDir, $"global.log"), $"[{botName}] {log}\n");
-        }
-
-        public static string GetLogs(string botName)
-        {
-            return Logs.TryGetValue(botName, out var log) ? log : "";
+            // Also append to global
+            string global = Path.Combine(LogDir, "global.log");
+            File.AppendAllText(global, line);
         }
     }
 }

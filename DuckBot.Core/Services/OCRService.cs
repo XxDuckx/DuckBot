@@ -7,14 +7,14 @@ namespace DuckBot.Core.Services
 {
     public static class OCRService
     {
-        private static string _tessDataPath = Path.Combine(AppContext.BaseDirectory, "tessdata");
+        private static string _tessDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tessdata");
 
         public static string ReadText(string adbPath, string deviceId)
         {
             byte[] imageBytes = AdbClient.ScreenCap(adbPath, deviceId);
 
             using var engine = new TesseractEngine(_tessDataPath, "eng", EngineMode.Default);
-            using var pix = Pix.LoadFromMemory(imageBytes); // ✅ Pix, not Bitmap
+            using var pix = Pix.LoadFromMemory(imageBytes);
             using var page = engine.Process(pix);
 
             return page.GetText().Trim();

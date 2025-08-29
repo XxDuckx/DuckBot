@@ -18,14 +18,7 @@ namespace DuckBot.Core.Models
         public string AssignedTask { get; set; } = "";
     }
 
-    public class MailAccount
-    {
-        public string Email { get; set; } = "";
-        public string Password { get; set; } = "";
-        public string Emulator { get; set; } = "";
-        public string Pin { get; set; } = "";
-        public bool Active { get; set; } = false;
-    }
+  
 
     public class BotOtherSettings
     {

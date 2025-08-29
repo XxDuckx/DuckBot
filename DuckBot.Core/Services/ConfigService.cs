@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 using DuckBot.Core.Models;
 
@@ -7,27 +6,28 @@ namespace DuckBot.Core.Services
 {
     public static class ConfigService
     {
-        private static string ConfigDir => Path.Combine(AppContext.BaseDirectory, "instances");
+        private static readonly JsonSerializerOptions _options = new() { WriteIndented = true };
+        private static readonly string ConfigDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "configs");
 
-        public static InstanceConfig Load(string instanceName)
+        static ConfigService()
         {
-            Directory.CreateDirectory(ConfigDir);
-            string path = Path.Combine(ConfigDir, $"{instanceName}.json");
-
-            if (!File.Exists(path))
-                return new InstanceConfig { InstanceName = instanceName };
-
-            string json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<InstanceConfig>(json) ?? new InstanceConfig { InstanceName = instanceName };
+            if (!Directory.Exists(ConfigDir))
+                Directory.CreateDirectory(ConfigDir);
         }
 
-        public static void Save(InstanceConfig config)
+        public static void SaveConfig(string fileName, InstanceConfig config)
         {
-            Directory.CreateDirectory(ConfigDir);
-            string path = Path.Combine(ConfigDir, $"{config.InstanceName}.json");
-
-            string json = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+            var path = Path.Combine(ConfigDir, fileName + ".json");
+            var json = JsonSerializer.Serialize(config, _options);
             File.WriteAllText(path, json);
+        }
+
+        public static InstanceConfig LoadConfig(string fileName)
+        {
+            var path = Path.Combine(ConfigDir, fileName + ".json");
+            if (!File.Exists(path)) return new InstanceConfig();
+            var json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<InstanceConfig>(json, _options) ?? new InstanceConfig();
         }
     }
 }

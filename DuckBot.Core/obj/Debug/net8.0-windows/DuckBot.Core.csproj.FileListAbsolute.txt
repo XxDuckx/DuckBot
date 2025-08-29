@@ -1,0 +1,12 @@
+C:\DuckBot\DuckBot.Core\bin\Debug\net8.0-windows\DuckBot.Core.deps.json
+C:\DuckBot\DuckBot.Core\bin\Debug\net8.0-windows\DuckBot.Core.dll
+C:\DuckBot\DuckBot.Core\bin\Debug\net8.0-windows\DuckBot.Core.pdb
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.AssemblyInfoInputs.cache
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.AssemblyInfo.cs
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.csproj.CoreCompileInputs.cache
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.sourcelink.json
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.dll
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\refint\DuckBot.Core.dll
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\DuckBot.Core.pdb
+C:\DuckBot\DuckBot.Core\obj\Debug\net8.0-windows\ref\DuckBot.Core.dll
